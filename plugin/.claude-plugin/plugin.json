@@ -1,0 +1,23 @@
+{
+  "name": "sov2oed",
+  "version": "1.0.0.dev0",
+  "description": "Statements of values (xlsx, csv, PDF) to OED location, account and provenance files, with a quality report, broker questions and the annotated workbook. An AI model decides how to read the file; published code reads every row and checks every number.",
+  "author": {
+    "name": "Thomas Duflos"
+  },
+  "homepage": "https://github.com/Duflosth/sov2oed",
+  "repository": "https://github.com/Duflosth/sov2oed",
+  "license": "Apache-2.0",
+  "keywords": [
+    "insurance",
+    "reinsurance",
+    "exposure",
+    "sov",
+    "oed",
+    "data-quality"
+  ],
+  "documentationUrl": "https://github.com/Duflosth/sov2oed/blob/main/docs/how-it-works.md",
+  "supportUrl": "https://github.com/Duflosth/sov2oed/issues",
+  "privacyPolicyUrl": "https://github.com/Duflosth/sov2oed/blob/main/PRIVACY.md",
+  "termsOfServiceUrl": "https://github.com/Duflosth/sov2oed/blob/main/LICENSE"
+}

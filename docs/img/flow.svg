@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 980 300" font-family="-apple-system, Segoe UI, Helvetica, Arial, sans-serif" font-size="13" role="img" aria-label="How sov2oed works: an AI model writes a reading plan, code checks it and reads every value">
+  <style>
+    .box { fill: #f6f8fa; stroke: #d0d7de; stroke-width: 1.2; }
+    .llm { fill: #fff8e1; stroke: #d4a72c; }
+    .code { fill: #eef6ff; stroke: #54aeff; }
+    .out { fill: #f0fff4; stroke: #4ac26b; }
+    .t { fill: #1f2328; font-weight: 600; }
+    .s { fill: #57606a; font-size: 11.5px; }
+    .a { stroke: #6e7781; stroke-width: 1.4; fill: none; marker-end: url(#arrow); }
+    .loop { stroke: #d4a72c; stroke-dasharray: 4 3; }
+    .bus { marker-end: none; }
+    .head { fill: #6e7781; }
+    @media (prefers-color-scheme: dark) {
+      .box { fill: #161b22; stroke: #30363d; }
+      .llm { fill: #2b2111; stroke: #bb8009; }
+      .code { fill: #0c2d4b; stroke: #388bfd; }
+      .out { fill: #0f2a19; stroke: #2ea043; }
+      .t { fill: #e6edf3; }
+      .s { fill: #9198a1; }
+      .a { stroke: #9198a1; }
+      .head { fill: #9198a1; }
+    }
+  </style>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path class="head" d="M0,0 L10,5 L0,10 z"/>
+    </marker>
+  </defs>
+
+  <rect class="box" x="10" y="40" width="160" height="90" rx="8"/>
+  <text class="t" x="90" y="72" text-anchor="middle">Schedule of values</text>
+  <text class="s" x="90" y="92" text-anchor="middle">xlsx · csv · PDF</text>
+  <text class="s" x="90" y="108" text-anchor="middle">as the broker sent it</text>
+
+  <rect class="box llm" x="210" y="40" width="170" height="90" rx="8"/>
+  <text class="t" x="295" y="66" text-anchor="middle">AI model</text>
+  <text class="s" x="295" y="86" text-anchor="middle">looks at the file,</text>
+  <text class="s" x="295" y="102" text-anchor="middle">writes the reading plan:</text>
+  <text class="s" x="295" y="118" text-anchor="middle">rows, columns, codes</text>
+
+  <rect class="box code" x="420" y="40" width="170" height="90" rx="8"/>
+  <text class="t" x="505" y="66" text-anchor="middle">decide</text>
+  <text class="s" x="505" y="86" text-anchor="middle">every reference holds,</text>
+  <text class="s" x="505" y="102" text-anchor="middle">totals add up, every label</text>
+  <text class="s" x="505" y="118" text-anchor="middle">coded, quotes in their cells</text>
+
+  <rect class="box code" x="630" y="40" width="150" height="90" rx="8"/>
+  <text class="t" x="705" y="66" text-anchor="middle">convert</text>
+  <text class="s" x="705" y="86" text-anchor="middle">code reads every value,</text>
+  <text class="s" x="705" y="102" text-anchor="middle">same file and plan,</text>
+  <text class="s" x="705" y="118" text-anchor="middle">same bytes</text>
+
+  <path class="a" d="M170,85 L206,85"/>
+  <path class="a" d="M380,85 L416,85"/>
+  <path class="a" d="M590,85 L626,85"/>
+  <path class="a loop" d="M505,40 C505,20 295,20 295,36"/>
+  <text class="s" x="400" y="14" text-anchor="middle">a plan error goes back, at most twice</text>
+
+  <rect class="box out" x="815" y="10" width="155" height="50" rx="8"/>
+  <text class="t" x="892" y="32" text-anchor="middle">OED 5.0 files</text>
+  <text class="s" x="892" y="49" text-anchor="middle">location · account</text>
+  <rect class="box out" x="815" y="70" width="155" height="50" rx="8"/>
+  <text class="t" x="892" y="92" text-anchor="middle">provenance</text>
+  <text class="s" x="892" y="109" text-anchor="middle">each value's cell</text>
+  <rect class="box out" x="815" y="130" width="155" height="50" rx="8"/>
+  <text class="t" x="892" y="152" text-anchor="middle">score 0-100, A-E</text>
+  <text class="s" x="892" y="169" text-anchor="middle">by insured value</text>
+  <rect class="box out" x="815" y="190" width="155" height="50" rx="8"/>
+  <text class="t" x="892" y="212" text-anchor="middle">annotated workbook</text>
+  <text class="s" x="892" y="229" text-anchor="middle">the client's own file</text>
+  <rect class="box out" x="815" y="250" width="155" height="44" rx="8"/>
+  <text class="t" x="892" y="270" text-anchor="middle">≤ 10 questions</text>
+  <text class="s" x="892" y="285" text-anchor="middle">for the broker</text>
+  <path class="a bus" d="M780,85 L798,85 M798,35 L798,272"/>
+  <path class="a" d="M798,35 L811,35"/>
+  <path class="a" d="M798,95 L811,95"/>
+  <path class="a" d="M798,155 L811,155"/>
+  <path class="a" d="M798,215 L811,215"/>
+  <path class="a" d="M798,272 L811,272"/>
+
+  <rect class="box code" x="420" y="190" width="360" height="70" rx="8"/>
+  <text class="t" x="600" y="216" text-anchor="middle">check</text>
+  <text class="s" x="600" y="236" text-anchor="middle">OED files received from someone else: the same score,</text>
+  <text class="s" x="600" y="252" text-anchor="middle">report and questions, with no schedule</text>
+</svg>

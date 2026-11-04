@@ -1,0 +1,66 @@
+# Reading plan for the fictional schedule sov_us_cedar_isd.xlsx, written from `inspect` as in the skill.
+plan: 1
+file: {name: sov_us_cedar_isd.xlsx, sha256: "d18472be2ebb274a06f61f0830ab9637ef2e77292991a8889443240136f4eef6"}
+country: {value: US, assumed: true}
+currency: {value: USD, cell: "Property SOV!A3", quote: "All values in USD"}
+insured: {cell: "Property SOV!A1", quote: "CEDAR CROSSING INDEPENDENT SCHOOL DISTRICT"}
+other_sheets:
+  Instructions: notes on the schedule (contents at 10% of building value)
+  CodeList: legend of the construction, roof and sprinkler codes (hidden)
+  Autos: auto schedule, not property
+  Tanks: storage tanks, scheduled on their own sheet
+tables:
+  - id: t1
+    sheet: Property SOV
+    header: [5]
+    rows: "6-29"
+    totals: ["30"]
+    area_unit: sqft
+    columns:
+      A: {field: LocNumber}
+      B: {field: LocNumber}
+      C: {field: LocName}
+      D: {field: LocName}
+      E: {field: StreetAddress}
+      F: {field: City}
+      G: {field: PostalCode}
+      H: {field: OccupancyCode}
+      I: {field: ConstructionCode}
+      J: {field: YearBuilt}
+      K: {field: FloorArea}
+      L: {field: NumberOfStoreys}
+      M: {field: RoofCover}
+      N: {field: FlexiLocSprinklered}
+      O: {field: BuildingTIV, basis: replacement}
+      P: {field: ContentsTIV}
+      Q: {field: row_total}
+      T: {field: FlexiLocComment}
+    sentinels: {K: ["0"], L: ["0"]}
+    non_building: {column: H, labels: [Misc. Structure]}
+codes:
+  OccupancyCode:
+    map: {School: 1231, Gymnasium: 1231, Cafeteria: 1231, Portable: 1231, Stadium: 1111, Administration: 1210,
+          Warehouse: 1122, Transportation: 1256, Maintenance: 1210, Misc. Structure: 1000}
+  ConstructionCode:
+    map: {"1": 5050, "2": 5108, "3": 5201, "4": 5100, "5": 5150, "6": 5150}
+  RoofCover:
+    map: {R1: 1, R2: 9, R3: 7, R4: 4, R5: 3}
+questions:
+  - title: Year built and roof year
+    text: >-
+      Classroom Bldg A at North Ridge MS was built in 2005, but its comment says the roof was replaced in 1998.
+      Which years are right, for the building and for the roof?
+    cells:
+      - {cell: "Property SOV!J10", quote: "2005"}
+      - {cell: "Property SOV!T10", quote: "Roof replaced 1998"}
+  - title: Vacant portable
+    text: >-
+      Portable 1 at Pecan Hollow ES has been vacant since May 2025. Is it still to be insured, and is it secured
+      and inspected while vacant?
+    cells:
+      - {cell: "Property SOV!D14", quote: "Portable 1"}
+      - {cell: "Property SOV!T14", quote: "Vacant - closed since 05/2025"}
+notes:
+  - Contents (P) are 10% of the building value by formula, as Instructions!A3 says; an estimate, not a declared value.
+  - Columns R and S are premium estimates, not values; not read.
+  - Sprinklered (N) is Y, P or N with no system type, kept as text.

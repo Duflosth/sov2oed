@@ -1,0 +1,50 @@
+# Reading plan for the fictional schedule sov_us_gulfmoor.pdf, written from `inspect --page` as in the skill.
+plan: 1
+file: {name: sov_us_gulfmoor.pdf, sha256: "01b90c5f8e3af7611535dd3829e0c77133942e7b02bbe6f40e7e529e9bdf08b4"}
+country: {value: US, cell: "p1:l1", quote: "TEXAS"}
+currency: {value: USD, cell: "p1:l6", quote: "Cost ($)"}
+insured: {value: Gulfmoor County, cell: "p1:l1", quote: "GULFMOOR COUNTY"}
+tables:
+  - id: buildings
+    rows_file: sov_us_gulfmoor.rows.csv  # sov2oed rows sov_us_gulfmoor.pdf sov2oed/data/rows_example.py
+    header: [1]
+    rows: "2-53"
+    totals: ["54", "64"]
+    area_unit: sqft
+    columns: &fields
+      B: {field: LocNumber}
+      C: {field: LocNumber}
+      D: {field: LocName}
+      E: {field: [LocName, OccupancyCode]}
+      F: {field: StreetAddress}
+      G: {field: City}
+      H: {field: PostalCode}
+      I: {field: YearBuilt}
+      J: {field: ConstructionCode}
+      K: {field: FloorArea}
+      L: {field: NumberOfStoreys}
+      M: {field: BuildingTIV, basis: replacement}
+      N: {field: ContentsTIV, basis: replacement}
+      O: {field: row_total}
+  - id: other
+    rows_file: sov_us_gulfmoor.rows.csv
+    rows: "55-63"
+    totals: ["64"]
+    area_unit: sqft
+    columns:
+      <<: *fields
+      E: {field: LocName}
+    sentinels: {K: ["0"], L: ["0"]}
+    non_building: {rows: "55-63"}
+codes:
+  OccupancyCode:
+    map: {Park Pavilion: 1108, Pump House: 1301, Equipment Shed: 1122, Animal Shelter: 1210, Records Storage: 1122,
+          Community Center: 1108, Vehicle Garage: 1210, Maintenance Barn: 1210, Branch Library: 1214,
+          Fire Station No. 1: 1220, Fire Station No. 2: 1220, Storage Building: 1122, Sheriff Substation: 1220,
+          Administration Bldg: 1210, Jail Annex: 1215, Restroom Building: 1108, Courthouse Annex: 1210,
+          Storage Shed: 1122}
+  ConstructionCode:
+    map: {Frame: 5050, JM: 5108, Masonry: 5100, NC: 5201, MNC: 5100, FR: 5150}
+notes:
+  - Construction is given as ISO class (Frame, JM, NC, MNC, FR); MNC is coded as masonry, NC as light metal.
+  - Values are replacement cost, as p3:l17 says.

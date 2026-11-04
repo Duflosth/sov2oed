@@ -1,0 +1,9 @@
+# Same bytes on every system: the tests compare file digests and exact outputs.
+* text=auto eol=lf
+fixtures/** binary
+*.pdf binary
+*.xlsx binary
+*.png binary
+*.zip binary
+sov2oed/data/*.csv -text
+plugin/** -text

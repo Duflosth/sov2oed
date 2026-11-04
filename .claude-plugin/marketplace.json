@@ -1,0 +1,12 @@
+{
+  "name": "sov2oed",
+  "description": "sov2oed: statements of values to OED, and OED quality checks",
+  "owner": { "name": "Thomas Duflos" },
+  "plugins": [
+    {
+      "name": "sov2oed",
+      "source": "./plugin",
+      "description": "Statements of values to OED files, a quality report, broker questions and the annotated workbook"
+    }
+  ]
+}

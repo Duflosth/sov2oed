@@ -1,0 +1,57 @@
+# Reading plan for a fictional schedule: "Harbour Town - Property Schedule 2026.xlsx".
+# Sheet "Schedule": title in A1 ("Harbour Town, Maine - values in USD"), headers on row 3, 41 locations on rows
+# 4-44, a total on row 45. Sheet "Codes" is the construction legend. Hidden sheet "2025" holds last year's values.
+plan: 1
+file: {name: "Harbour Town - Property Schedule 2026.xlsx", sha256: "<shasum -a 256 of the file>"}
+country: {value: US, cell: "Schedule!A1", quote: "Maine"}
+currency: {value: USD, cell: "Schedule!A1", quote: "values in USD"}
+insured: {cell: "Schedule!A1", quote: "Harbour Town"}
+other_sheets:
+  Codes: legend of the construction codes in column G
+  "2025": last year's schedule (hidden), same buildings
+tables:
+  - id: t1
+    sheet: Schedule
+    header: [3]
+    rows: "4-44"
+    skip: {"20": section heading "Parks"}
+    totals: ["45"]
+    area_unit: sqft
+    columns:
+      A: {field: LocNumber}
+      B: {field: StreetAddress}
+      C: {field: [LocName, OccupancyCode]}
+      D: {field: YearBuilt}
+      E: {field: NumberOfStoreys}
+      F: {field: FloorArea}
+      G: {field: ConstructionCode}
+      H: {field: BuildingTIV, basis: replacement}
+      I: {field: ContentsTIV, basis: replacement}
+      J: {field: row_total}
+    sentinels: {D: ["0"], F: ["0", "1"]}
+    placeholders: {I: ["25000"]}
+    non_building: {column: C, labels: [Playground, Light Poles]}
+codes:
+  OccupancyCode:
+    map: {Town Hall: 1210, Fire Station: 1220, Library: 1214, Pump Station: 1301, Garage: 1121, Playground: 1108, Light Poles: 1000}
+  ConstructionCode:
+    map: {F: 5050, JM: 5108, MNC: 5100, NC: 5201}
+defaults:
+  City: {value: Harbour Town, cell: "Schedule!A1", quote: "Harbour Town"}
+  AreaCode: {value: ME, cell: "Schedule!A1", quote: "Maine"}
+facts:
+  - {cell: "Schedule!C12", field: FlexiLocComment, value: "generator in the value", quote: "incl. standby generator"}
+account:
+  perils: {value: WW1, cell: "Schedule!A2", quote: "Windstorm"}
+questions:
+  - text: >-
+      The Town Hall and the Old Town Hall are both at 1 Harbour Street with the same building value. Are they two
+      buildings, or one building listed twice?
+    cells:
+      - {cell: "Schedule!C8", quote: "Town Hall"}
+      - {cell: "Schedule!C9", quote: "Old Town Hall"}
+  - text: The flood values on row 31 are marked "NFIP max". Are they the value of the building, or the policy limit?
+    cells:
+      - {cell: "Schedule!H31", quote: "NFIP max"}
+notes:
+  - Column K (premium) is blank on every row and not read.

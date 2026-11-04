@@ -1,0 +1,83 @@
+[project]
+name = "sov2oed"
+version = "1.0.0.dev0"
+description = "Turn statements of values (SOV) into OED exposure files, and check the quality of any OED file"
+readme = "README.md"
+license = "Apache-2.0"
+license-files = ["LICENSE", "NOTICE"]
+authors = [{ name = "Thomas Duflos", email = "thomas@aldarion.si" }]
+requires-python = ">=3.11"
+keywords = ["OED", "Oasis", "statement of values", "SOV", "exposure data", "insurance", "reinsurance", "data quality"]
+classifiers = [
+  "Development Status :: 4 - Beta",
+  "Environment :: Console",
+  "Intended Audience :: Financial and Insurance Industry",
+  "Operating System :: OS Independent",
+  "Programming Language :: Python :: 3",
+  "Programming Language :: Python :: 3 :: Only",
+  "Programming Language :: Python :: 3.11",
+  "Programming Language :: Python :: 3.12",
+  "Programming Language :: Python :: 3.13",
+  "Topic :: Office/Business :: Financial",
+]
+# Only packages the Claude code-execution sandbox ships with: the skill runs without network access.
+dependencies = [
+  "openpyxl>=3.1",
+  "pdfplumber>=0.11",
+  "pydantic>=2.7",
+  "pyyaml>=6.0",
+  "jinja2>=3.1",
+]
+
+[project.optional-dependencies]
+mcp = ["mcp>=2.0"]
+anthropic = ["anthropic>=0.116"]  # sov2oed auto with Claude
+openai = ["openai>=1.50"]  # sov2oed auto with an OpenAI-compatible endpoint
+dev = ["pytest>=8", "ruff>=0.17,<0.18", "mypy>=1.10", "types-PyYAML"]
+
+[project.scripts]
+sov2oed = "sov2oed.cli:main"
+
+[project.urls]
+Source = "https://github.com/Duflosth/sov2oed"
+Issues = "https://github.com/Duflosth/sov2oed/issues"
+
+[build-system]
+requires = ["setuptools>=77"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["sov2oed*"]
+
+[tool.setuptools.package-data]
+sov2oed = ["data/*"]
+"sov2oed.report" = ["templates/*.j2"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+pythonpath = ["."]
+
+[tool.ruff]
+line-length = 120
+target-version = "py311"
+extend-exclude = ["plugin"]  # a generated copy of skills/ and the package
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "B", "UP", "I", "SIM", "RUF", "BLE"]
+ignore = [
+  "E501",     # dense tables of labels and messages read better on one line
+  "RUF001",   # typographic characters (’ « » – …) in strings are intentional
+  "RUF002",
+  "RUF003",
+  "SIM108",   # if-else blocks kept where a ternary would be too long
+  "UP042",    # `class X(str, Enum)` stays: StrEnum changes str() and format() of the members
+]
+
+[tool.ruff.lint.isort]
+known-first-party = ["sov2oed"]
+combine-as-imports = true
+
+[tool.mypy]
+python_version = "3.11"
+files = ["sov2oed"]
+ignore_missing_imports = true

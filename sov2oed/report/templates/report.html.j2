@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>{{ title }}</title>
+<style>
+:root { --page: #f2f5fa; --tile: #fff; --ink: #0c2148; --soft: #5b6a86; --line: #cdd6e6; --dark: #0c2148; --dark-2: #14295a;
+        --dark-3: #1e3563; --dark-soft: #afc0de; --tint: #dce6f7; --tint-soft: #34476b; --warm: #ffb27a; --alert: #a63a0a;
+        --alert-bg: #fdede3; --inset: #f6f8fc; --track: #edf1f8; --c1: #0c2148; --c2: #5b8def; --c3: #e9c98b; --c4: #9fb4dc;
+        --low: repeating-linear-gradient(135deg, #e8803f 0 8px, #f0a06c 8px 16px); }
+* { box-sizing: border-box; }
+body { margin: 0; background: var(--page); color: var(--ink); font-variant-numeric: tabular-nums;
+       font-family: "Plus Jakarta Sans", system-ui, -apple-system, "Segoe UI", sans-serif; -webkit-font-smoothing: antialiased; }
+.wrap { max-width: 1340px; margin: 0 auto; padding: 32px 32px 56px; display: flex; flex-direction: column; gap: 20px; }
+.grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 20px; }
+.s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s5 { grid-column: span 5; } .s6 { grid-column: span 6; }
+.s7 { grid-column: span 7; } .s8 { grid-column: span 8; } .s12 { grid-column: 1 / -1; }
+.head { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; padding: 4px 4px 8px; }
+.id { display: flex; align-items: center; gap: 14px; }
+.logo { width: 44px; height: 44px; border-radius: 14px; background: var(--dark); color: #fff; display: flex; align-items: center; justify-content: center; }
+.kicker { font-size: 13px; color: var(--soft); font-weight: 600; } h1 { margin: 0; font-size: 22px; font-weight: 800; }
+.acts { display: flex; gap: 8px; flex-wrap: wrap; }
+.btn { font: inherit; font-size: 14px; font-weight: 700; height: 44px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--line);
+       background: var(--tile); color: var(--ink); cursor: pointer; display: inline-flex; align-items: center; text-decoration: none; }
+.btn.solid { background: var(--dark); color: #fff; border-color: var(--dark); } .btn.light { background: #fff; color: var(--dark); border: 0; font-size: 13px; }
+.btn:focus-visible { outline: 2px solid var(--c2); outline-offset: 2px; }
+.tile { background: var(--tile); border-radius: 28px; padding: 28px; display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+.tile.ink { background: var(--dark); color: #fff; } .tile.tint { background: var(--tint); }
+.row { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; }
+.lbl { font-size: 14px; font-weight: 600; color: var(--soft); } .note { font-size: 13px; color: var(--soft); }
+.ink .lbl, .ink .note { color: var(--dark-soft); } .tint .lbl, .tint .note { color: var(--tint-soft); }
+.pill { font-size: 12px; font-weight: 700; padding: 6px 10px; border-radius: 999px; }
+.pill.warn { background: var(--dark-3); color: var(--warm); } .pill.alert { background: var(--alert-bg); color: var(--alert); }
+.grade { justify-content: space-between; min-height: 300px; } .gradebody { display: flex; align-items: center; gap: 24px; }
+.ring { position: relative; width: 150px; height: 150px; flex: none; } .ring svg { width: 150px; height: 150px; }
+.ring circle { fill: none; stroke-width: 14; } .ring .trk { stroke: var(--dark-3); } .ring .arc { stroke: #fff; }
+.ring b { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; font-size: 60px; font-weight: 800; }
+.score b { display: block; font-size: 44px; font-weight: 800; line-height: 1; } .score span { font-size: 14px; color: var(--dark-soft); }
+.big { font-size: 60px; font-weight: 800; line-height: 1; letter-spacing: -.03em; }
+.waffle { display: grid; grid-template-columns: repeat(20, minmax(0, 1fr)); gap: 4px; } .waffle i { aspect-ratio: 1; border-radius: 4px; }
+.BuildingTIV, .m1 { background: var(--c1); } .ContentsTIV, .m2 { background: var(--c2); } .OtherTIV, .m3 { background: var(--c3); }
+.BITIV { background: var(--c4); } .m0 { box-shadow: inset 0 0 0 1px var(--line); } .mx { background: var(--alert); }
+.legend { display: flex; flex-wrap: wrap; gap: 8px 20px; font-size: 14px; } .legend span { display: flex; align-items: center; gap: 8px; }
+.legend i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; } .legend.small { font-size: 13px; color: var(--soft); }
+.broker { justify-content: space-between; } .huge { display: block; font-size: 96px; font-weight: 800; line-height: .9; letter-spacing: -.04em; }
+.broker .sub { font-size: 16px; font-weight: 700; }
+.cols { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 14px; height: 260px; }
+.col { display: grid; grid-template-rows: auto 1fr auto; height: 100%; gap: 10px; } .col b { font-size: 26px; font-weight: 800; }
+.col > div { align-self: end; border-radius: 16px; background: var(--dark); min-height: 6px; } .col .low { background: var(--low); }
+.col > span { font-size: 13px; color: var(--soft); line-height: 1.35; min-height: 2.7em; }
+.brk { display: flex; flex-direction: column; gap: 8px; padding: 18px; border-radius: 20px; background: var(--inset); }
+.brk b { font-size: 26px; font-weight: 800; color: var(--alert); letter-spacing: -.02em; } .brk p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--tint-soft); }
+.chip { font-size: 12px; font-weight: 700; padding: 4px 10px; border-radius: 999px; background: var(--dark); color: #fff; }
+.issues { gap: 8px; } .iss { display: flex; flex-direction: column; gap: 8px; padding: 10px 0; } .iss b { font-size: 15px; } .iss strong { color: var(--ink); }
+.track { height: 12px; border-radius: 999px; background: var(--track); overflow: hidden; } .track i { display: block; height: 100%; background: var(--dark); border-radius: 999px; }
+.questions ol { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 6px; }
+.questions li { display: flex; gap: 14px; padding: 14px; border-radius: 18px; background: var(--dark-2); align-items: flex-start; }
+.questions .n { flex: none; width: 30px; height: 30px; border-radius: 999px; background: #fff; color: var(--dark); font-size: 13px; font-weight: 800;
+                display: flex; align-items: center; justify-content: center; }
+.questions li div { display: flex; flex-direction: column; gap: 4px; min-width: 0; flex: 1; } .questions li b { font-size: 15px; }
+.questions li div span { font-size: 13px; line-height: 1.5; color: #c5d2ea; }
+.questions em { font-style: normal; font-size: 12px; font-weight: 700; color: var(--dark-soft); white-space: nowrap; padding-top: 2px; }
+.matrix .scroll { overflow-x: auto; } .matrix table { border-collapse: separate; border-spacing: 3px; } .matrix td, .matrix th { padding: 0; border: 0; }
+.matrix th { height: 92px; vertical-align: bottom; font-size: 12px; color: var(--soft); font-weight: 500; }
+.matrix th div { transform: rotate(-60deg); transform-origin: left bottom; white-space: nowrap; width: 16px; margin-left: 11px; }
+.matrix td.l { padding-right: 14px; font-size: 12.5px; white-space: nowrap; color: var(--soft); max-width: 240px; overflow: hidden; text-overflow: ellipsis; }
+.matrix td.l b { color: var(--ink); } .matrix td.c { width: 16px; height: 16px; border-radius: 4px; }
+.notes p { margin: 0; font-size: 14px; line-height: 1.55; color: var(--soft); } .notes p b { color: var(--ink); } .notes .note { margin-top: auto; }
+@media (max-width: 960px) { .grid > * { grid-column: 1 / -1; } .wrap { padding: 20px 16px 40px; } .huge { font-size: 72px; } }
+@media print { body { background: #fff; } .acts { display: none; } .tile { break-inside: avoid; } }
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="head">
+  <div class="id">
+    <span class="logo"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M4 10h16"/><path d="M10 10v10"/></svg></span>
+    <div><span class="kicker">{{ insured or "OED quality report" }}</span><h1>{{ v.file or title }}</h1></div>
+  </div>
+  <div class="acts">
+    {% if v.file %}<a class="btn" href="location.csv" download>Download OED</a>{% endif %}
+    {% if v.questions %}<button class="btn solid" type="button" data-copy>Copy the questions</button>{% endif %}
+  </div>
+</header>
+
+<div class="grid">
+<div class="s4 tile ink grade">
+  <div class="row"><span class="lbl">Grade</span>{% if v.verdict %}<span class="pill warn">{{ v.verdict }}</span>{% endif %}</div>
+  <div class="gradebody">
+    <div class="ring"><svg viewBox="0 0 120 120" aria-hidden="true"><circle cx="60" cy="60" r="50" class="trk"/><circle cx="60" cy="60" r="50" class="arc" stroke-dasharray="{{ v.ring }} 314.2" transform="rotate(-90 60 60)"/></svg><b>{{ r.grade }}</b></div>
+    <div class="score"><b>{{ r.score }}</b><span>out of 100</span></div>
+  </div>
+  <span class="note">{{ r.locations }} locations, weighted by insured value</span>
+</div>
+
+<div class="{{ 's5' if v.questions else 's8' }} tile">
+  <div class="row"><span class="lbl">Insured value</span>{% if v.assumed %}<span class="note">Assumed: {{ v.assumed | join(", ") }}</span>{% endif %}</div>
+  <span class="big">{{ v.tiv.values() | sum | amount }}</span>
+  <div class="waffle" role="img" aria-label="Insured value by kind">{% for k in v.waffle %}<i class="{{ k }}"></i>{% endfor %}</div>
+  <div class="legend">{% for k, value in v.tiv.items() %}<span><i class="{{ k }}"></i>{{ values[k] }} <b>{{ value | amount }}</b></span>{% endfor %}</div>
+</div>
+
+{% if v.questions %}
+<div class="s3 tile tint broker">
+  <span class="lbl">For the broker</span>
+  <div><span class="huge">{{ v.questions | length }}</span><span class="sub">question{{ "" if v.questions | length == 1 else "s" }} to send</span></div>
+  <span class="note">{% if v.on_figures %}{{ v.on_figures }} of them on the schedule's own figures{% else %}Listed below, largest share first{% endif %}</span>
+</div>
+{% endif %}
+
+<div class="{{ 's7' if v.breaks else 's12' }} tile">
+  <span class="lbl">Data quality by family</span>
+  <div class="cols">{% for name, value in v.families %}<div class="col"><b>{{ "–" if value is none else value }}</b><div class="{{ 'low' if value is not none and value < 80 }}" style="height: {{ 0 if value is none else value }}%"></div><span>{{ name }}</span></div>{% endfor %}</div>
+</div>
+
+{% if v.breaks %}
+<div class="s5 tile">
+  <div class="row"><span class="lbl">The schedule's own figures</span><span class="pill alert">{{ v.breaks | length }} to correct</span></div>
+  {% for b in v.breaks %}<div class="brk"><div class="row"><b>{{ b.amount }}</b>{% if b.cell %}<span class="chip">{{ b.cell }}</span>{% endif %}</div><p>{{ b.text }}</p></div>{% endfor %}
+</div>
+{% endif %}
+
+<div class="{{ 's6' if v.questions else 's12' }} tile issues">
+  <span class="lbl">Largest issues</span>
+  {% for x in r.issues[:6] %}
+  <div class="iss">
+    <div class="row"><b>{{ x.title }}</b><span class="note">{{ x.locations }} loc. <strong>{{ x.share | pct }}</strong></span></div>
+    <div class="track"><i style="width: {{ [100 * x.share, 2] | max }}%"></i></div>
+    <span class="note">{{ x.label[:1] | upper }}{{ x.label[1:] }}</span>
+  </div>
+  {% else %}<p class="note">No issue found.</p>{% endfor %}
+</div>
+
+{% if v.questions %}
+<div class="s6 tile ink questions">
+  <div class="row"><span class="lbl">Questions for the broker</span><button class="btn light" type="button" data-copy>Copy all</button></div>
+  <ol>{% for q in v.questions %}<li><span class="n">{{ loop.index }}</span><div>{% if q.title %}<b>{{ q.title }}</b>{% endif %}<span>{{ q.detail }}</span></div>{% if q.where %}<em>{{ q.where }}</em>{% endif %}</li>{% endfor %}</ol>
+</div>
+{% endif %}
+
+{% if r.matrix %}
+<div class="s8 tile matrix">
+  <span class="lbl">Where each value comes from{% if r.matrix.of > r.matrix.rows | length %}: the first {{ r.matrix.rows | length }} of {{ r.matrix.of }} locations{% endif %}</span>
+  <div class="scroll"><table>
+    <tr><th></th>{% for f in r.matrix.fields %}<th><div>{{ fields[f] }}</div></th>{% endfor %}</tr>
+    {% for row in r.matrix.rows %}<tr><td class="l" title="{{ row.name }}"><b>{{ row.number }}</b> {{ row.name }}</td>{% for c in row.cells %}<td class="c {{ {'d': 'm1', 'r': 'm2', 'a': 'm3', 'x': 'mx'}.get(c, 'm0') }}"></td>{% endfor %}</tr>{% endfor %}
+  </table></div>
+  <div class="legend small"><span><i class="m1"></i>Read from a cell</span><span><i class="m2"></i>Coded from a label</span><span><i class="m3"></i>Assumed</span><span><i class="m0"></i>Blank</span><span><i class="mx"></i>Flagged by a check</span></div>
+</div>
+{% endif %}
+
+<div class="{{ 's4' if r.matrix else 's12' }} tile notes">
+  <span class="lbl">How to read this</span>
+  {% if v.assumed %}<p><b>Assumed</b> because the schedule does not state them: {{ v.assumed | join(", ") }}.</p>{% endif %}
+  <p><b>The grade</b> weighs each issue by the share of insured value it concerns: A from 90, B from 80, C from 70, D from 55. The rules and their thresholds are in RULES.md.</p>
+  {% if v.file %}<p><b>Every value</b> is read by code from a reading plan, so the same file and plan give the same result.</p>{% endif %}
+  <span class="note">Generated by sov2oed</span>
+</div>
+</div>
+</div>
+<script>
+document.querySelectorAll("[data-copy]").forEach(function (b) {
+  b.addEventListener("click", function () {
+    var text = [].map.call(document.querySelectorAll(".questions li"), function (li, i) {
+      var t = li.querySelector("b"), d = li.querySelector("div span"), w = li.querySelector("em");
+      return (i + 1) + ". " + (t ? t.textContent + ": " : "") + d.textContent + (w ? " (" + w.textContent + ")" : "");
+    }).join("\n");
+    if (navigator.clipboard) navigator.clipboard.writeText(text).then(function () {
+      var label = b.textContent; b.textContent = "Copied"; setTimeout(function () { b.textContent = label; }, 1500);
+    });
+  });
+});
+</script>
+</body>
+</html>

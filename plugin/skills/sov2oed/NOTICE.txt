@@ -1,0 +1,15 @@
+sov2oed
+Copyright 2026 Thomas Duflos
+
+Licensed under the Apache License, Version 2.0 (see LICENSE).
+
+Third-party material
+--------------------
+- sov2oed/data/OpenExposureData_5.0.0Spec.json and sov2oed/data/OtherValues.csv: the Open Exposure Data
+  (OED) specification by Oasis Loss Modelling Framework, published under CC0 1.0
+  (https://github.com/OasisLMF/ODS_OpenExposureData).
+- sov2oed/check/schema.py reproduces schema checks of ods_tools (Oasis LMF, BSD 3-Clause licence,
+  https://github.com/OasisLMF/ODS_Tools).
+- sov2oed/data/country_boxes.csv and iso4217.csv: see sov2oed/data/SOURCE.md.
+
+sov2oed is an independent project. It is not endorsed by Oasis LMF or by any other organisation.
